@@ -26,7 +26,6 @@ function Register({ handleRegister, buttonText }) {
       <form
         className="auth-form"
         onSubmit={handleSubmit}
-        noValidate
       >
         <h2 className="auth-form__title">Регистрация</h2>
         <input

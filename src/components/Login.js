@@ -28,7 +28,6 @@ function Login({ handleLogin, buttonText }) {
       <form
         className="auth-form"
         onSubmit={handleSubmit}
-        noValidate
       >
         <h2 className="auth-form__title">Вход</h2>
         <input
