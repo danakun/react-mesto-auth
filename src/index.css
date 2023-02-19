@@ -55,7 +55,7 @@
 @import url(./blocks/popup/__caption/popup__caption.css);
 @import url(./blocks/popup/__error/popup__error.css);
 @import url(./blocks/popup/__error/_active/popup__error_active.css);
-@import url(./blocks/popup/__caption/_type/popup__caption_type_tooltip.css);
+@import url(./blocks/popup/__info/popup__info.css);
 @import url(./blocks/popup/__icon/popup__icon.css);
 @import url(./blocks/popup/__icon/_type/popup__icon_type_tooltip.css);
  /* footer */

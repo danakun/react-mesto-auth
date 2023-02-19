@@ -7,7 +7,7 @@ function Register({ handleRegister, buttonText }) {
     password: "",
   });
 
-  const handleChange = (evt) => {
+  function handleChange(evt) {
     const { name, value } = evt.target;
 
     setUserDataValue({
@@ -16,7 +16,14 @@ function Register({ handleRegister, buttonText }) {
     });
   };
 
-  function handleSubmit(evt) {
+//   function handleSubmit(evt) {
+//     evt.preventDefault();
+    
+//     const { email, password } = userDataValue;
+//     handleRegister(userDataValue);
+//   };
+
+const handleSubmit = (evt) => {
     evt.preventDefault();
     const { email, password } = userDataValue;
     handleRegister(email, password);

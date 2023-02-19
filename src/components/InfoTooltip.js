@@ -24,7 +24,7 @@ function InfoTooltip({isOpen, onClose, isSuccessful, onOverlayClick})  {
           onClick={onClose}
         />
         <img className="popup__icon popup__icon_type_tooltip" src={icon} alt={message}/>
-        <p className="popup__caption popup__caption_type_tooltip">{message}</p>
+        <p className="popup__info">{message}</p>
       </div>
     </section>
   )

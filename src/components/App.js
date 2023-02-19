@@ -109,7 +109,7 @@ function App() {
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   }
-
+// Обработчик удаления карточки
   function handleCardDelete(card) {
     api
       .deleteCard(card._id)
@@ -132,7 +132,7 @@ function App() {
 
    // Функция для регистрации нового профиля
    function handleRegister({ email, password }) {
-     auth
+     return auth
     .register(email, password).then(() => {
       handleInfoTooltip();
       setIsSuccessful(true);
@@ -147,7 +147,7 @@ function App() {
 
   // Функция для логина профиля
   function handleLogin({ email, password }) {
-    auth
+    return auth
     .login(email, password).then((data) => {
       if (data.jwt) {
         localStorage.setItem("jwt", data.jwt);
@@ -228,7 +228,7 @@ function signOut() {
         <Route
             path="/sign-up"
             element={<Register
-              onSubmit={handleRegister}
+              handleRegister={handleRegister}
               name='register'
               title='Регистрация'
               buttonText='Зарегистрироваться' />}
@@ -236,7 +236,7 @@ function signOut() {
            <Route
             path="/sign-in"
             element={<Login
-              onSubmit={handleLogin}
+              handleLogin={handleLogin}
               name='login'
               title='Вход'
               buttonText='Войти' />}

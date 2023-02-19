@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Login({ handleAuthorize, buttonText })  {
+function Login({ handleLogin, buttonText })  {
   const [userDataValue, setUserDataValue] = useState({
     email: "",
     password: ""
@@ -15,12 +15,12 @@ function Login({ handleAuthorize, buttonText })  {
     });
   };
 
-  const handleSubmit = (evt) => {
+  function handleSubmit(evt) {
     evt.preventDefault();
     if (!userDataValue.email || !userDataValue.password) {
       return;
     }
-    handleAuthorize(userDataValue.email, userDataValue.password);
+    handleLogin(userDataValue.email, userDataValue.password);
   };
 
   return (
