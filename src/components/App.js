@@ -131,7 +131,7 @@ function App() {
   }
 
    // Функция для регистрации нового профиля
-   function handleRegister({ email, password }) {
+   function handleRegister( email, password ) {
      return auth
     .register(email, password).then(() => {
       handleInfoTooltip();
@@ -146,7 +146,7 @@ function App() {
   }
 
   // Функция для логина профиля
-  function handleLogin({ email, password }) {
+  function handleLogin( email, password ) {
     return auth
     .login(email, password).then((data) => {
       if (data.jwt) {
