@@ -302,7 +302,7 @@ function signOut() {
          <InfoTooltip
           isOpen={isInfoTooltipPopupOpen}
           onClose={closeAllPopups}
-          isSuccess={isSuccessful}
+          isSuccessful={isSuccessful}
           onOverlayClick={handleOverlayClick}
         />
 
