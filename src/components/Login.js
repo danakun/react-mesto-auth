@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-function Login({ handleLogin, buttonText })  {
+function Login({ handleLogin, buttonText }) {
   const [userDataValue, setUserDataValue] = useState({
-    email: "",
-    password: ""
+    email: '',
+    password: '',
   });
 
   const handleChange = (evt) => {
@@ -21,18 +21,22 @@ function Login({ handleLogin, buttonText })  {
       return;
     }
     handleLogin(userDataValue.email, userDataValue.password);
-  };
+  }
 
   return (
     <section className="auth">
-      <form className="auth-form" onSubmit={handleSubmit} noValidate>
+      <form
+        className="auth-form"
+        onSubmit={handleSubmit}
+        noValidate
+      >
         <h2 className="auth-form__title">Вход</h2>
         <input
           className="auth-form__item"
           name="email"
           type="email"
           placeholder="Email"
-          value={userDataValue.email || ""}
+          value={userDataValue.email || ''}
           onChange={handleChange}
           required
         />
@@ -41,7 +45,7 @@ function Login({ handleLogin, buttonText })  {
           name="password"
           type="password"
           placeholder="Пароль"
-          value={userDataValue.password || ""}
+          value={userDataValue.password || ''}
           onChange={handleChange}
           required
         />
@@ -55,6 +59,6 @@ function Login({ handleLogin, buttonText })  {
       </form>
     </section>
   );
-};
+}
 
 export default Login;

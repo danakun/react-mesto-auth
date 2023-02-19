@@ -17,7 +17,6 @@ import InfoTooltip from './InfoTooltip';
 import * as auth from '../utils/auth';
 
 function App() {
-
   // Хук для навигации
   const navigate = useNavigate();
   // Переменная состояния для логина юзера
@@ -26,9 +25,8 @@ function App() {
   const [email, setEmail] = useState('');
   // Переменная состояния внутри попапа регистрации
   const [isSuccessful, setIsSuccessful] = useState(false);
-   // Переменные состояния для открытия попапа регистрации
+  // Переменные состояния для открытия попапа регистрации
   const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
-  
 
   // Переменная состояния для инфо пользователя
   const [currentUser, setCurrentUser] = useState({});
@@ -47,36 +45,37 @@ function App() {
   // Функция с промисом для данных профиля и карточки
   useEffect(() => {
     if (loggedIn) {
-    Promise.all([api.getUserProfile(), api.getInitialCards()])
-      .then(([currentUser, cards]) => {
-        setCurrentUser(currentUser);
-        setCards(cards);
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`));
+      Promise.all([api.getUserProfile(), api.getInitialCards()])
+        .then(([currentUser, cards]) => {
+          setCurrentUser(currentUser);
+          setCards(cards);
+        })
+        .catch((error) => console.log(`Ошибка: ${error}`));
     }
   }, [loggedIn]);
 
-// Проверка токена при первой загрузке
+  // Проверка токена при первой загрузке
 
   useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-  if (jwt) {
-    auth
-    .getContent(jwt).then((res) => {
-      setLoggedIn(true);
-      setEmail(res.data.email);
-      navigate("/");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth
+        .getContent(jwt)
+        .then((res) => {
+          setLoggedIn(true);
+          setEmail(res.data.email);
+          navigate('/');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [navigate]);
 
- 
- // Обработчики тултип попапа
+  // Обработчики тултип попапа
   function handleInfoTooltip() {
-    setInfoTooltipPopupOpen(true);}
+    setInfoTooltipPopupOpen(true);
+  }
 
   // Обработчики открывания попапов по клику
   function handleEditAvatarClick() {
@@ -109,7 +108,7 @@ function App() {
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   }
-// Обработчик удаления карточки
+  // Обработчик удаления карточки
   function handleCardDelete(card) {
     api
       .deleteCard(card._id)
@@ -130,49 +129,48 @@ function App() {
     setInfoTooltipPopupOpen(false);
   }
 
-   // Функция для регистрации нового профиля
-   function handleRegister( email, password ) {
-     return auth
-    .register(email, password).then(() => {
-      handleInfoTooltip();
-      setIsSuccessful(true);
-      navigate("/sign-in");
-    })
-    .catch((err) => {
-      handleInfoTooltip();
-      setIsSuccessful(false);
-      console.log(err);
-    })
+  // Функция для регистрации нового профиля
+  function handleRegister(email, password) {
+    return auth
+      .register(email, password)
+      .then(() => {
+        handleInfoTooltip();
+        setIsSuccessful(true);
+        navigate('/sign-in');
+      })
+      .catch((err) => {
+        handleInfoTooltip();
+        setIsSuccessful(false);
+        console.log(err);
+      });
   }
 
   // Функция для логина профиля
-  function handleLogin( email, password ) {
+  function handleLogin(email, password) {
     return auth
-    .login(email, password).then((data) => {
-      if (data.jwt) {
-        localStorage.setItem("jwt", data.jwt);
-        setLoggedIn(true);
-        setEmail(email);
-        navigate("/");
-      }
-    })
-    .catch((err) => {
-      handleInfoTooltip();
-      setIsSuccessful(false);
-      console.log(err);
-    });
+      .login(email, password)
+      .then((data) => {
+        if (data) {
+          localStorage.setItem('jwt', data.token);
+          setLoggedIn(true);
+          setEmail(email);
+          navigate('/');
+        }
+      })
+      .catch((err) => {
+        handleInfoTooltip();
+        setIsSuccessful(false);
+        console.log(err);
+      });
   }
 
-
-   // Функция для выхода из профиля
-function signOut() {
-    localStorage.removeItem("jwt");
-    navigate("/sign-in");
+  // Функция для выхода из профиля
+  function signOut() {
+    localStorage.removeItem('jwt');
+    navigate('/sign-in');
     setLoggedIn(false);
-    setEmail("");
+    setEmail('');
   }
-  
-    
 
   // Обработчик клика по оверлей
   const handleOverlayClick = (evt) => {
@@ -220,46 +218,53 @@ function signOut() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header
-         email={email}
-         loggedIn={loggedIn}
-         onSignOut={signOut}
-          />
-        <Routes>
-        <Route
-            path="/sign-up"
-            element={<Register
-              handleRegister={handleRegister}
-              name='register'
-              title='Регистрация'
-              buttonText='Зарегистрироваться' />}
-          />
-           <Route
-            path="/sign-in"
-            element={<Login
-              handleLogin={handleLogin}
-              name='login'
-              title='Вход'
-              buttonText='Войти' />}
-          />
-          <Route path= "/"
-          element= {
-        <>
-        <ProtectedRoute
-          component={Main}
+          email={email}
           loggedIn={loggedIn}
-          onEditProfile={handleEditProfileClick}
-          onEditAvatar={handleEditAvatarClick}
-          onAddPlace={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-          cards={cards}
+          onSignOut={signOut}
         />
-        <Footer />
-        </>
-      }
-      />
-      <Route
+        <Routes>
+          <Route
+            path="/sign-up"
+            element={
+              <Register
+                handleRegister={handleRegister}
+                name="register"
+                title="Регистрация"
+                buttonText="Зарегистрироваться"
+              />
+            }
+          />
+          <Route
+            path="/sign-in"
+            element={
+              <Login
+                handleLogin={handleLogin}
+                name="login"
+                title="Вход"
+                buttonText="Войти"
+              />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <>
+                <ProtectedRoute
+                  element={Main}
+                  loggedIn={loggedIn}
+                  onEditProfile={handleEditProfileClick}
+                  onEditAvatar={handleEditAvatarClick}
+                  onAddPlace={handleAddPlaceClick}
+                  onCardClick={handleCardClick}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
+                  cards={cards}
+                />
+                <Footer />
+              </>
+            }
+          />
+          <Route
             path="*"
             element={
               loggedIn ? <Navigate to="/" /> : <Navigate to="/sign-in" />
@@ -299,13 +304,12 @@ function signOut() {
           onClose={closeAllPopups}
           onOverlayClick={handleOverlayClick}
         />
-         <InfoTooltip
+        <InfoTooltip
           isOpen={isInfoTooltipPopupOpen}
           onClose={closeAllPopups}
           isSuccessful={isSuccessful}
           onOverlayClick={handleOverlayClick}
         />
-
       </div>
     </CurrentUserContext.Provider>
   );

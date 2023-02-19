@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Register({ handleRegister, buttonText }) {
   const [userDataValue, setUserDataValue] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   function handleChange(evt) {
@@ -14,27 +14,27 @@ function Register({ handleRegister, buttonText }) {
       ...userDataValue,
       [name]: value,
     });
-  };
+  }
 
-
-
-const handleSubmit = (evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-    //const { email, password } = userDataValue;
     handleRegister(userDataValue.email, userDataValue.password);
-    console.log(userDataValue)
   };
 
   return (
     <section className="auth">
-      <form className="auth-form" onSubmit={handleSubmit} noValidate>
+      <form
+        className="auth-form"
+        onSubmit={handleSubmit}
+        noValidate
+      >
         <h2 className="auth-form__title">Регистрация</h2>
         <input
           className="auth-form__item"
           name="email"
           type="email"
           placeholder="Email"
-          value={userDataValue.email || ""}
+          value={userDataValue.email || ''}
           onChange={handleChange}
           required
         />
@@ -43,7 +43,7 @@ const handleSubmit = (evt) => {
           name="password"
           type="password"
           placeholder="Пароль"
-          value={userDataValue.password || ""}
+          value={userDataValue.password || ''}
           onChange={handleChange}
           required
         />
@@ -54,18 +54,18 @@ const handleSubmit = (evt) => {
         >
           {buttonText}
         </button>
-        <span 
-          className="auth-form__advice">
-          Уже зарегистрированы? 
-          <Link 
-            to="/sign-in" 
-            className="auth-form__link">
+        <span className="auth-form__advice">
+          Уже зарегистрированы?
+          <Link
+            to="/sign-in"
+            className="auth-form__link"
+          >
             Войти
           </Link>
         </span>
       </form>
     </section>
   );
-};
+}
 
 export default Register;
